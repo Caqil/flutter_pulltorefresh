@@ -641,7 +641,6 @@ class RefreshController {
           headerMode!.setValueWithNoNotify(RefreshStatus.refreshing);
           if (indicatorElement.state.mounted) {
             (indicatorElement.state as RefreshIndicatorState).setState(() {});
-            print("+++++++++++++++++++++++");
           }
         }
       });
