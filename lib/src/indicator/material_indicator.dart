@@ -93,6 +93,16 @@ class _MaterialClassicHeaderState
   }
 
   @override
+  void setState(VoidCallback fn) {
+    super.setState(fn);
+
+    if (mode == RefreshStatus.refreshing) {
+      _positionController.value = widget.distance / widget.height;
+      _scaleFactor.value = 1;
+    }
+  }
+
+  @override
   void didUpdateWidget(covariant MaterialClassicHeader oldWidget) {
     // TODO: implement didUpdateWidget
     _position = Scrollable.of(context)!.position;
