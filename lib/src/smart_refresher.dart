@@ -619,7 +619,7 @@ class RefreshController {
 
     if (needMove && _refresherState!.mounted) _refresherState!.setCanDrag(false);
     if (needMove) {
-      return Future.delayed(const Duration(milliseconds: 50)).then((_) async {
+      return Future.delayed(const Duration(milliseconds:20)).then((_) async {
         // - 0.0001 is for NestedScrollView.
         await position?.animateTo(position!.minScrollExtent - 0.0001, duration: duration, curve: curve).then((_) {
           if (_refresherState != null && _refresherState!.mounted) {
