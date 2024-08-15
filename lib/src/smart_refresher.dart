@@ -619,18 +619,24 @@ class RefreshController {
 
     if (needMove && _refresherState!.mounted) _refresherState!.setCanDrag(false);
     if (needMove) {
-      return Future.delayed(const Duration(milliseconds:20)).then((_) async {
-        // - 0.0001 is for NestedScrollView.
-        await position?.animateTo(position!.minScrollExtent - 0.0001, duration: duration, curve: curve).then((_) {
-          if (_refresherState != null && _refresherState!.mounted) {
-            _refresherState!.setCanDrag(true);
-            if (needCallback) {
-              headerMode!.value = RefreshStatus.refreshing;
-            } else {
-              headerMode!.setValueWithNoNotify(RefreshStatus.refreshing);
-              if (indicatorElement.state.mounted) (indicatorElement.state as RefreshIndicatorState).setState(() {});
+      return Future.value().then((_) {
+        if (!needCallback) {
+           if (_refresherState != null && _refresherState!.mounted) {
+             headerMode!.setValueWithNoNotify(RefreshStatus.refreshing);
+            if (indicatorElement.state.mounted) (indicatorElement.state as RefreshIndicatorState).setState(() {});
+           }
+        }
+
+        return Future.delayed(const Duration(milliseconds: 20)).then((_) async {
+          // - 0.0001 is for NestedScrollView.
+          await position?.animateTo(position!.minScrollExtent - 0.0001, duration: duration, curve: curve).then((_) {
+            if (_refresherState != null && _refresherState!.mounted) {
+              _refresherState!.setCanDrag(true);
+              if (needCallback) {
+                headerMode!.value = RefreshStatus.refreshing;
+              }
             }
-          }
+          });
         });
       });
     } else {
