@@ -81,8 +81,8 @@ class LinkFooter extends LoadIndicator {
   const LinkFooter(
       {Key? key,
       required this.linkKey,
-      double height= 0.0,
-      LoadStyle loadStyle= LoadStyle.ShowAlways})
+      double height = 0.0,
+      LoadStyle loadStyle = LoadStyle.ShowAlways})
       : super(height: height, loadStyle: loadStyle, key: key);
 
   @override
